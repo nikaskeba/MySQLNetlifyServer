@@ -32,14 +32,14 @@ exports.handler = async (event, context) => {
     connection.end();
    return {
       statusCode: 200,
-      HEADERS
+      HEADERS,
       body: JSON.stringify({ message: 'Biography saved successfully' })
     };
   } catch (error) {
     console.error(error);
      return {
       statusCode: 500,
-       HEADERS
+       HEADERS,
       body: JSON.stringify({ error: 'Failed to save biography' })
     };
   }
