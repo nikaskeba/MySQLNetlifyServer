@@ -7,11 +7,17 @@ const dbConfig = {
   password: process.env.MYSQL_PASSWORD,
   database: 'skeba_netlify'
 };
-  const headers = {
-    'Access-Control-Allow-Origin': 'http://localhost:3000', // Allow only this origin (your local development server)
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST'
-  };
+ let HEADERS = {
+  'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin',
+  'Content-Type': 'application/json', //optional
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Max-Age': '8640'
+}
+
+//This solves the "No ‘Access-Control-Allow-Origin’ header is present on the requested resource."
+
+HEADERS['Access-Control-Allow-Origin'] = '*'
+HEADERS['Vary'] = 'Origin'
 exports.handler = async (event, context) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -26,14 +32,14 @@ exports.handler = async (event, context) => {
     connection.end();
    return {
       statusCode: 200,
-      headers: headers,
+      HEADERS
       body: JSON.stringify({ message: 'Biography saved successfully' })
     };
   } catch (error) {
     console.error(error);
      return {
       statusCode: 500,
-      headers: headers,
+       HEADERS
       body: JSON.stringify({ error: 'Failed to save biography' })
     };
   }
