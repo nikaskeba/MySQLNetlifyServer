@@ -7,20 +7,20 @@ const dbConfig = {
   password: process.env.MYSQL_PASSWORD,
   database: 'skeba_netlify'
 };
-cconst headers = {
+const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin',
+  'Access-Control-Allow-Headers': 'Content-Type, Origin, Accept, X-Requested-With',
   'Content-Type': 'application/json',
   'Access-Control-Max-Age': '8640'
 };
 
 exports.handler = async (event, context) => {
-  // Handle the preflight request
+  // Handle OPTIONS request for CORS preflight
   if (event.httpMethod === 'OPTIONS') {
     return {
-      statusCode: 204,
-      headers
+      statusCode: 200, // IMPORTANT: Return 200 for OPTIONS method
+      headers: headers
     };
   }
 
