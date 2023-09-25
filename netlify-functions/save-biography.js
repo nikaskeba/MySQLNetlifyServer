@@ -2,7 +2,7 @@ const mysql = require('mysql2/promise');
 
 // MySQL connection configuration
 const dbConfig = {
-  host: '162.240.77.218:2083',
+  host: '162.240.77.218:3306',
   user: 'skeba_netlify',
   password: process.env.MYSQL_PASSWORD,
   database: 'skeba_netlify'
