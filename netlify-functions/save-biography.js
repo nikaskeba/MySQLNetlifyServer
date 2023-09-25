@@ -7,16 +7,23 @@ const dbConfig = {
   password: process.env.MYSQL_PASSWORD,
   database: 'skeba_netlify'
 };
-const headers = {
+cconst headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin',
   'Content-Type': 'application/json',
-  'Access-Control-Max-Age': '8640',
-  'Vary': 'Origin'
+  'Access-Control-Max-Age': '8640'
 };
 
 exports.handler = async (event, context) => {
+  // Handle the preflight request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 204,
+      headers
+    };
+  }
+
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, headers, body: 'Method Not Allowed' };
   }
